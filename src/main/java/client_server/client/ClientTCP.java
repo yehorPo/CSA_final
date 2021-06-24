@@ -11,14 +11,14 @@ import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 
 @Data
-public class StoreClientTCP {
+public class ClientTCP {
     private static final int CLIENT_PORT = 2222;
     private static final int RECONNECT_MAX = 3;
 
     private Socket socket;
     private Packet response;
 
-    public StoreClientTCP() {
+    public ClientTCP() {
     }
 
     public Packet sendPacket(byte[] packet) {
@@ -72,9 +72,5 @@ public class StoreClientTCP {
             System.out.println("CORRECT response!");
         else
             System.out.println("WRONG response!");
-
-        System.out.println("Response from server: " + new String(receivedPacket.getBMsq().getMessage(), StandardCharsets.UTF_8)
-                + "\t for user with ID: " + receivedPacket.getSrcId()
-                + "\t for packet with ID: " + receivedPacket.getbPktId());
     }
 }
