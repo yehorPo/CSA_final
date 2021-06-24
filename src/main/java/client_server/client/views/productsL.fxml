@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?language JavaScript?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="706.0" prefWidth="953.0" spacing="10" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client_server.client.controllers.ProductsListControl">
+    <style>
+        -fx-padding: 10;
+        -fx-border-style: solid inside;
+        -fx-border-width: 2;
+        -fx-border-insets: 5;
+        -fx-border-radius: 5;
+        -fx-border-color: blue;-fx-background-color: #ff85d2; -fx-border-color: #ff85d2;</style>
+    <children>
+      <HBox alignment="TOP_CENTER" prefHeight="32.0" prefWidth="760.0">
+         <children>
+            <Label prefHeight="34.0" prefWidth="122.0" style="-fx-border-color: #30cfe4;" text="Products" textFill="#30cfe4">
+               <font>
+                  <Font size="22.0" />
+               </font>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+            </Label>
+         </children>
+      </HBox>
+        <TableView fx:id="productsTable" prefHeight="254.0" prefWidth="823.0" style="-fx-background-color: #30cfe4;">
+            <columns>
+                <TableColumn fx:id="idCol" prefWidth="40.00000077486038" text="ID">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="id" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="nameCol" prefWidth="137.5999984741211" text="Name">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="name" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="priceCol" prefWidth="101.60000610351562" text="Price">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="price" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="amountCol" prefWidth="97.59991455078125" text="Amount">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="total" />
+                    </cellValueFactory>
+                </TableColumn>
+            <TableColumn fx:id="descrCol" prefWidth="300.0" text="Description" />
+            <TableColumn fx:id="manufacturerCol" minWidth="0.0" prefWidth="150.0" text="Manufacturer" />
+            <TableColumn fx:id="groupIdCol" minWidth="0.0" prefWidth="90.0" text="Group ID" />
+            </columns>
+        </TableView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff85d2" height="83.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="918.0" />
+      <HBox alignment="CENTER" prefHeight="54.0" prefWidth="747.0">
+         <children>
+            <VBox prefHeight="232.0" prefWidth="124.0">
+               <children>
+                        <TextField fx:id="groupIdFilter" promptText="Group" />
+                        <TextField fx:id="manufacturerFilter" promptText="Manufacturer" />
+                        <TextField fx:id="idFilter" promptText="ID" />
+                        <TextField fx:id="priceFromFilter" promptText="Min price" />
+                        <TextField fx:id="priceToFilter" promptText="Max price" />
+                  <Button mnemonicParsing="false" onAction="#filterP" prefHeight="54.0" prefWidth="133.0" style="-fx-background-color: #30cfe4;" text="Filter" textFill="#ff85d2">
+                     <font>
+                        <Font size="22.0" />
+                     </font></Button>
+                  <Button mnemonicParsing="false" onAction="#showAllProd" prefHeight="54.0" prefWidth="133.0" style="-fx-background-color: #30cfe4;" text="Show" textFill="#ff85d2">
+                     <font>
+                        <Font size="22.0" />
+                     </font></Button>
+               </children>
+            </VBox>
+            <VBox prefHeight="232.0" prefWidth="163.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#toGroupList" prefHeight="46.0" prefWidth="185.0" style="-fx-background-color: #30cfe4;" text="Groups" textFill="#ff85d2">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="addUserBtn" mnemonicParsing="false" onAction="#addUser" prefHeight="46.0" prefWidth="192.0" style="-fx-background-color: #30cfe4;" text="Registr" textFill="#ff85d2">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#logOut" prefHeight="30.0" prefWidth="186.0" style="-fx-background-color: #30cfe4;" text="Log out" textFill="#ff85d2">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+            <VBox prefHeight="232.0" prefWidth="130.0">
+               <children>
+                      <Button fx:id="addNewProductBtn" mnemonicParsing="false" onAction="#addNewPWindow" prefHeight="54.0" prefWidth="133.0" style="-fx-background-color: #30cfe4;" text="Add new" textFill="#ff85d2">
+                     <font>
+                        <Font size="22.0" />
+                     </font></Button>
+                      <Button fx:id="deleteProductBtn" mnemonicParsing="false" onAction="#deleteP" prefHeight="54.0" prefWidth="133.0" style="-fx-background-color: #30cfe4;" text="Delete" textFill="#ff85d2">
+                     <font>
+                        <Font size="22.0" />
+                     </font></Button>
+                  <Button fx:id="updateProductBtn" mnemonicParsing="false" onAction="#updatePWindow" prefHeight="54.0" prefWidth="133.0" style="-fx-background-color: #30cfe4;" text="Update" textFill="#ff85d2">
+                     <font>
+                        <Font size="22.0" />
+                     </font></Button>
+                  <Button mnemonicParsing="false" onAction="#addAmount" prefHeight="46.0" prefWidth="156.0" style="-fx-background-color: #30cfe4;" text="Add" textFill="#ff85d2">
+                     <font>
+                        <Font size="22.0" />
+                     </font></Button>
+                  <Button mnemonicParsing="false" onAction="#deductAmount" prefHeight="26.0" prefWidth="159.0" style="-fx-background-color: #30cfe4;" text="Remove" textFill="#ff85d2">
+                     <font>
+                        <Font size="22.0" />
+                     </font></Button>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox alignment="TOP_CENTER" prefWidth="749.0">
+         <children>
+            <Label fx:id="statusLabel" prefHeight="30.0" prefWidth="608.0" textFill="#e10000">
+               <padding>
+                  <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+               </padding>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+    </children>
+</VBox>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?language JavaScript?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="726.0" prefWidth="783.0" spacing="10" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client_server.client.controllers.GroupsListControl">
+    <style>
+        -fx-padding: 10;
+        -fx-border-style: solid inside;
+        -fx-border-width: 2;
+        -fx-border-insets: 5;
+        -fx-border-radius: 5;
+        -fx-border-color: blue;-fx-background-color: #ff85d2; -fx-border-color: #ff85d2;</style>
+    <children>
+        <HBox alignment="TOP_CENTER" prefHeight="32.0" prefWidth="760.0">
+            <children>
+                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="796.0" style="-fx-border-color: #30cfe4;" text="Groups " textFill="#30cfe4">
+                    <font>
+                        <Font size="22.0" />
+                    </font>
+                    <padding>
+                        <Insets left="20.0" />
+                    </padding>
+                </Label>
+            </children>
+        </HBox>
+        <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" />
+        <TableView fx:id="groupsTable" prefHeight="369.0" prefWidth="786.0" style="-fx-background-color: #30cfe4;">
+            <columns>
+                <TableColumn fx:id="idCol" prefWidth="70.40001755952835" text="ID">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="id" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="nameCol" prefWidth="225.60003662109375" text="Name">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="name" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="descrCol" prefWidth="451.1999755859375" text="Description" />
+            </columns>
+        </TableView>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff85d2" height="200.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="226.0" />
+            <VBox prefHeight="200.0" prefWidth="204.0">
+               <children>
+                      <Button fx:id="addNewGroupBtn" mnemonicParsing="false" onAction="#addNewGWindow" prefHeight="54.0" prefWidth="250.0" style="-fx-background-color: #30cfe4;" text="Add new group" textFill="#ff85d2">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </Button>
+                      <Button fx:id="updateGroupBtn" mnemonicParsing="false" onAction="#updateGWindow" prefHeight="54.0" prefWidth="209.0" style="-fx-background-color: #30cfe4;" text="Update group" textFill="#ff85d2">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </Button>
+                      <Button fx:id="deleteGroupBtn" mnemonicParsing="false" onAction="#deleteGroup" prefHeight="54.0" prefWidth="210.0" style="-fx-background-color: #30cfe4;" text="Delete group" textFill="#ff85d2">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                      <Button mnemonicParsing="false" onAction="#showAllGroups" prefHeight="54.0" prefWidth="133.0" style="-fx-background-color: #30cfe4;" text="Undo" textFill="#ff85d2">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                      </Button>
+                        <TextField fx:id="idFilterField" prefHeight="59.0" prefWidth="100.0" promptText="ID" />
+                      <Button mnemonicParsing="false" onAction="#filterGroups" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: #30cfe4;" text="Filter" textFill="#ff85d2">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                      </Button>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+        <HBox prefHeight="66.0" prefWidth="750.0">
+            <children>
+                <Button mnemonicParsing="false" onAction="#toProdList" prefHeight="27.0" prefWidth="318.0" style="-fx-background-color: #30cfe4;" text="Back" textFill="#ff85d2">
+                    <font>
+                        <Font name="System Bold" size="22.0" />
+                    </font>
+                </Button>
+                <Label fx:id="statusLabel" prefHeight="18.0" prefWidth="770.0" textFill="#dd0000">
+                    <padding>
+                        <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+                    </padding>
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+            </children>
+        </HBox>
+    </children>
+</VBox>
