@@ -1,14 +1,5 @@
 package client_server.client.controllers;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
-
 import client_server.client.GlobalContext;
 import client_server.domain.Group;
 import client_server.domain.packet.Message;
@@ -28,7 +19,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import static client_server.client.controllers.LoginWindowControl.addingUser;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.ResourceBundle;
+
 import static client_server.domain.packet.Message.cTypes.*;
 
 public class GroupsListControl {
@@ -40,12 +40,6 @@ public class GroupsListControl {
 
     @FXML
     private Button updateGroupBtn;
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private TextField idFilterField;
@@ -65,7 +59,7 @@ public class GroupsListControl {
     @FXML
     private Label statusLabel;
     @FXML
-    void addNewGWindow(ActionEvent event) throws MalformedURLException {
+    void addNewGWindow() throws MalformedURLException {
         statusLabel.setText("");
 
         URL url = new File("src/main/java/client_server/client/views/addG.fxml").toURI().toURL();
@@ -78,19 +72,15 @@ public class GroupsListControl {
         }
         Stage stage = new Stage();
         stage.setTitle("New Group");
-        stage.setScene(new Scene(root));
+        stage.setScene(new Scene(Objects.requireNonNull(root)));
 
-        stage.setOnHiding(new EventHandler<WindowEvent>() {
-            public void handle(WindowEvent we) {
-                resetTable();
-            }
-        });
+        stage.setOnHiding(we -> resetTable());
 
         stage.show();
     }
 
     @FXML
-    void updateGWindow(ActionEvent event) throws MalformedURLException {
+    void updateGWindow() throws MalformedURLException {
         statusLabel.setText("");
 
         Group group = groupsTable.getSelectionModel().getSelectedItem();
@@ -112,11 +102,7 @@ public class GroupsListControl {
             UpdateGroupControl controller = loader.getController();
             controller.initData(group);
 
-            stage.setOnHiding(new EventHandler<WindowEvent>() {
-                public void handle(WindowEvent we) {
-                    resetTable();
-                }
-            });
+            stage.setOnHiding(we -> resetTable());
 
             stage.show();
         }else{
@@ -125,7 +111,7 @@ public class GroupsListControl {
     }
 
     @FXML
-    void deleteGroup(ActionEvent event) {
+    void deleteGroup() {
         Group group = groupsTable.getSelectionModel().getSelectedItem();
 
         if(group != null) {
@@ -177,7 +163,7 @@ public class GroupsListControl {
     }
 
     @FXML
-    void filterGroups(ActionEvent event) {
+    void filterGroups() {
 
         statusLabel.setText("");
 
@@ -224,10 +210,10 @@ public class GroupsListControl {
     }
 
     @FXML
-    void toProdList(ActionEvent event) throws MalformedURLException {
-        FXMLLoader loader = new FXMLLoader();
+    void toProdList() throws MalformedURLException {
+        new FXMLLoader();
         Stage stage = (Stage) idFilterField.getScene().getWindow();
-        URL url = null;
+        URL url;
 
         url = new File("src/main/java/client_server/client/views/productsL.fxml").toURI().toURL();
 
@@ -238,17 +224,13 @@ public class GroupsListControl {
             e.printStackTrace();
             statusLabel.setText("Can't open products.");
         }
+        assert root != null;
         Scene scene = new Scene(root);
         stage.setScene(scene);
     }
 
     @FXML
-    void logOut(ActionEvent event) throws MalformedURLException {
-        LoginWindowControl.logOut(addNewGroupBtn);
-    }
-
-    @FXML
-    void showAllGroups(ActionEvent event) {
+    void showAllGroups() {
         statusLabel.setText(" ");
         resetTable();
     }

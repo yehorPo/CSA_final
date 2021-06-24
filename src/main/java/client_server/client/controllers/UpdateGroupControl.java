@@ -1,30 +1,21 @@
 package client_server.client.controllers;
 
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.util.ResourceBundle;
-
 import client_server.client.GlobalContext;
 import client_server.domain.Group;
 import client_server.domain.packet.Message;
 import client_server.domain.packet.Packet;
 import com.google.common.primitives.UnsignedLong;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.nio.charset.StandardCharsets;
+
 import static client_server.domain.packet.Message.cTypes.UPDATE_GROUP;
 
 public class UpdateGroupControl {
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private Label idLabel;
@@ -39,7 +30,7 @@ public class UpdateGroupControl {
     private Label statusLabel;
 
     @FXML
-    void updateGroup(ActionEvent event) {
+    void updateGroup() {
         if(nameField.getText().isEmpty() || descrField.getText().isEmpty()){
             statusLabel.setText("Fill out all fields before updateProduct.");
         }else{

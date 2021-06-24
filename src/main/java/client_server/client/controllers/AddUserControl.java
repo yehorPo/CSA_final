@@ -1,18 +1,12 @@
 package client_server.client.controllers;
 
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.util.ResourceBundle;
-
 import client_server.client.GlobalContext;
-import client_server.domain.Group;
+import client_server.domain.User;
 import client_server.domain.packet.Message;
 import client_server.domain.packet.Packet;
-import client_server.domain.User;
 import com.google.common.primitives.UnsignedLong;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -20,15 +14,11 @@ import javafx.scene.control.TextField;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.nio.charset.StandardCharsets;
+
 import static client_server.domain.packet.Message.cTypes.ADD_USER;
 
 public class AddUserControl {
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private TextField loginField;
@@ -43,7 +33,7 @@ public class AddUserControl {
     private Label statusLabel;
 
     @FXML
-    void createUser(ActionEvent event) {
+    void createUser() {
         if (loginField.getText().isEmpty() || passwordField.getText().isEmpty() || roleChoice.getValue().isEmpty()) {
             statusLabel.setText("Fill out all fields before adding.");
         } else {

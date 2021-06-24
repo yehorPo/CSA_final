@@ -15,7 +15,6 @@ public class UserCred {
 
     public JSONObject toJSON(){
 
-        JSONObject json = new JSONObject("{"+"\"login\":\""+login+"\", \"password\":\""+password+"\"}");
-        return json;
+        return new JSONObject("{"+"\"login\":\""+login+"\", \"password\":\""+password+"\"}");
     }
 }

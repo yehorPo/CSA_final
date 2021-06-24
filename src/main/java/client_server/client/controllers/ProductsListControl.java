@@ -1,21 +1,11 @@
 package client_server.client.controllers;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
-
 import client_server.client.GlobalContext;
-import client_server.domain.*;
+import client_server.domain.Product;
+import client_server.domain.ProductFilter;
 import client_server.domain.packet.Message;
 import client_server.domain.packet.Packet;
 import com.google.common.primitives.UnsignedLong;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,13 +13,22 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 import static client_server.client.controllers.LoginWindowControl.addingUser;
-import static client_server.domain.packet.Message.cTypes.*;
+import static client_server.domain.packet.Message.cTypes.DELETE_PRODUCT;
+import static client_server.domain.packet.Message.cTypes.GET_LIST_PRODUCTS;
 
 public class ProductsListControl {
 
@@ -44,12 +43,6 @@ public class ProductsListControl {
 
     @FXML
     private Button updateProductBtn;
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private TextField idFilter;
@@ -95,12 +88,12 @@ public class ProductsListControl {
 
 
     @FXML
-    void addUser(ActionEvent event) throws MalformedURLException {
+    void addUser() throws MalformedURLException {
         addingUser(statusLabel);
     }
 
     @FXML
-    void addAmount(ActionEvent event) throws MalformedURLException {
+    void addAmount() throws MalformedURLException {
         Product product = productsTable.getSelectionModel().getSelectedItem();
 
         if (product != null) {
@@ -120,11 +113,7 @@ public class ProductsListControl {
             AddAmountControl controller = loader.getController();
             controller.initData(product);
 
-            stage.setOnHiding(new EventHandler<WindowEvent>() {
-                public void handle(WindowEvent we) {
-                    resetTable();
-                }
-            });
+            stage.setOnHiding(we -> resetTable());
 
             stage.show();
         } else {
@@ -133,7 +122,7 @@ public class ProductsListControl {
     }
 
     @FXML
-    void deductAmount(ActionEvent event) throws MalformedURLException {
+    void deductAmount() throws MalformedURLException {
         Product product = productsTable.getSelectionModel().getSelectedItem();
 
         if (product != null) {
@@ -153,11 +142,7 @@ public class ProductsListControl {
             DeductAmountControl controller = loader.getController();
             controller.initData(product);
 
-            stage.setOnHiding(new EventHandler<WindowEvent>() {
-                public void handle(WindowEvent we) {
-                    resetTable();
-                }
-            });
+            stage.setOnHiding(we -> resetTable());
 
             stage.show();
         }else{
@@ -166,7 +151,7 @@ public class ProductsListControl {
     }
 
     @FXML
-    void addNewPWindow(ActionEvent event) throws MalformedURLException {
+    void addNewPWindow() throws MalformedURLException {
         URL url = new File("src/main/java/client_server/client/views/addP.fxml").toURI().toURL();
         Parent root = null;
         try {
@@ -177,19 +162,15 @@ public class ProductsListControl {
         }
         Stage stage = new Stage();
         stage.setTitle("New Product");
-        stage.setScene(new Scene(root));
+        stage.setScene(new Scene(Objects.requireNonNull(root)));
 
-        stage.setOnHiding(new EventHandler<WindowEvent>() {
-            public void handle(WindowEvent we) {
-                resetTable();
-            }
-        });
+        stage.setOnHiding(we -> resetTable());
 
         stage.show();
     }
 
     @FXML
-    void updatePWindow(ActionEvent event) throws MalformedURLException {
+    void updatePWindow() throws MalformedURLException {
         Product product = productsTable.getSelectionModel().getSelectedItem();
 
         if (product != null) {
@@ -209,11 +190,7 @@ public class ProductsListControl {
             UpdateProdControl controller = loader.getController();
             controller.initData(product);
 
-            stage.setOnHiding(new EventHandler<WindowEvent>() {
-                public void handle(WindowEvent we) {
-                    resetTable();
-                }
-            });
+            stage.setOnHiding(we -> resetTable());
 
             stage.show();
         } else {
@@ -222,7 +199,7 @@ public class ProductsListControl {
     }
 
     @FXML
-    void deleteP(ActionEvent event) {
+    void deleteP() {
         Product product = productsTable.getSelectionModel().getSelectedItem();
 
         if (product != null) {
@@ -254,10 +231,10 @@ public class ProductsListControl {
     }
 
     @FXML
-    void filterP(ActionEvent event) {
+    void filterP() {
         statusLabel.setText("");
 
-        List<Integer> listId = new ArrayList<Integer>();
+        List<Integer> listId = new ArrayList<>();
         ProductFilter fl = new ProductFilter();
         if (!idFilter.getText().isEmpty()) {
             try {
@@ -326,10 +303,10 @@ public class ProductsListControl {
 
 
     @FXML
-    void toGroupList(ActionEvent event) throws MalformedURLException {
-        FXMLLoader loader = new FXMLLoader();
+    void toGroupList() throws MalformedURLException {
+        new FXMLLoader();
         Stage stage = (Stage) idFilter.getScene().getWindow();
-        URL url = null;
+        URL url;
 
         url = new File("src/main/java/client_server/client/views/groupL.fxml").toURI().toURL();
 
@@ -340,20 +317,21 @@ public class ProductsListControl {
             e.printStackTrace();
             statusLabel.setText("Can't open groups.");
         }
+        assert root != null;
         Scene scene = new Scene(root);
         stage.setScene(scene);
     }
 
 
     @FXML
-    void logOut(ActionEvent event) throws MalformedURLException {
+    void logOut() throws MalformedURLException {
         LoginWindowControl.logOut(deleteProductBtn);
     }
 
 
 
     @FXML
-    void showAllProd(ActionEvent event) {
+    void showAllProd() {
         statusLabel.setText("");
         resetTable();
     }

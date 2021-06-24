@@ -40,10 +40,9 @@ public class TGroup {
             final String sql = String.format("select * from 'groups' where id = %s", id);
             final ResultSet resultSet = statement.executeQuery(sql);
 
-            Group group = new Group(resultSet.getInt("id"),
+            return new Group(resultSet.getInt("id"),
                     resultSet.getString("name"),
                     resultSet.getString("description"));
-            return group;
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
@@ -55,10 +54,9 @@ public class TGroup {
         try (final Statement statement = connection.createStatement()) {
             final String sql = String.format("select * from 'groups' where name = '%s'", name);
             final ResultSet resultSet = statement.executeQuery(sql);
-            Group group = new Group(resultSet.getInt("id"),
+            return new Group(resultSet.getInt("id"),
                     resultSet.getString("name"),
                     resultSet.getString("description"));
-            return group;
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
@@ -89,7 +87,7 @@ public class TGroup {
 
     public int updateGroup(Group group) {
         Group group1 = getGroupByName(group.getName());
-        if (group1 == null || group.getId() == group1.getId()) {
+        if (group1 == null || group.getId().equals(group1.getId())) {
             try (final PreparedStatement preparedStatement =
                          connection.prepareStatement("update 'groups' set name = ?, description = ?  where id = ?")) {
                 preparedStatement.setString(1, group.getName());
@@ -119,7 +117,7 @@ public class TGroup {
     public List<Group> getAll() {
         try (final Statement statement = connection.createStatement()) {
 
-            final String sql = String.format("select * from 'groups'");
+            final String sql = "select * from 'groups'";
             final ResultSet resultSet = statement.executeQuery(sql);
 
             final List<Group> groups = new ArrayList<>();
@@ -132,24 +130,6 @@ public class TGroup {
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
-        }
-    }
-
-    public void deleteAll() {
-        try (final Statement statement = connection.createStatement()) {
-            String query = "delete from 'groups'";
-            statement.execute(query);
-        } catch (SQLException e) {
-            throw new RuntimeException("Can't delete groups", e);
-        }
-    }
-
-    public void deleteTable() {
-        try (final Statement statement = connection.createStatement()) {
-            String query = "drop table 'groups'";
-            statement.execute(query);
-        } catch (SQLException e) {
-            throw new RuntimeException("Can't delete table", e);
         }
     }
 

@@ -1,15 +1,18 @@
 package client_server.client.controllers;
 
 import client_server.client.GlobalContext;
+import client_server.domain.UserCred;
 import client_server.domain.packet.Message;
 import client_server.domain.packet.Packet;
-import client_server.domain.UserCred;
 import com.google.common.primitives.UnsignedLong;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.json.JSONException;
@@ -20,17 +23,10 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.ResourceBundle;
 
 import static client_server.domain.packet.Message.cTypes.LOGIN;
 
 public class LoginWindowControl {
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private TextField loginField;
@@ -77,7 +73,7 @@ public class LoginWindowControl {
             }
 
             if (loggedIn) {
-                FXMLLoader loader = new FXMLLoader();
+                new FXMLLoader();
                 Stage stage = (Stage) loginField.getScene().getWindow();
                 URL url = new File("src/main/java/client_server/client/views/productsL.fxml").toURI().toURL();
                 Parent root = FXMLLoader.load(url);
@@ -93,7 +89,7 @@ public class LoginWindowControl {
     }
 
     public static void logOut(Button button) throws MalformedURLException {
-        FXMLLoader loader = new FXMLLoader();
+        new FXMLLoader();
         Stage stage = (Stage) button.getScene().getWindow();
         URL url = new File("src/main/java/client_server/client/views/index.fxml").toURI().toURL();
         Parent root = null;
@@ -102,6 +98,7 @@ public class LoginWindowControl {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        assert root != null;
         Scene scene = new Scene(root);
         stage.setScene(scene);
 
@@ -119,6 +116,7 @@ public class LoginWindowControl {
         }
         Stage stage = new Stage();
         stage.setTitle("New User");
+        assert root != null;
         stage.setScene(new Scene(root));
         stage.show();
     }

@@ -20,10 +20,6 @@ public class ProductFilter {
         this.ids = ids;
     }
 
-    public String getQuery() {
-        return query;
-    }
-
     public void setQuery(String query) {
         this.query = query;
     }
@@ -62,20 +58,20 @@ public class ProductFilter {
 
     public JSONObject toJSON(){
 
-        String arr;
+        StringBuilder arr;
 
         if(ids == null || ids.isEmpty()){
-            arr = "null";
+            arr = new StringBuilder("null");
         }
         else {
             Object[] objArr = ids.toArray();
 
-            arr = "[";
+            arr = new StringBuilder("[");
 
             for (int i = 0; i < objArr.length - 1; i++) {
-                arr +=  objArr[i] + ", ";
+                arr.append(objArr[i]).append(", ");
             }
-            arr += objArr[objArr.length - 1] + "]";
+            arr.append(objArr[objArr.length - 1]).append("]");
         }
         String manuf;
 
@@ -86,9 +82,8 @@ public class ProductFilter {
             manuf = "\""+manufacturer+"\"";
         }
 
-        JSONObject json = new JSONObject("{"+"\"ids\":"+arr+", \"query\":\""+query+
+        return new JSONObject("{"+"\"ids\":"+arr+", \"query\":\""+query+
                 "\", \"fromPrice\":"+ fromPrice+", \"toPrice\":"+toPrice+
                 ", \"manufacturer\":"+ manuf+", \"group_id\":"+ group_id+"}");
-        return json;
     }
 }

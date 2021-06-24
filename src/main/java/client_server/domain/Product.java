@@ -3,7 +3,6 @@ package client_server.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
@@ -42,21 +41,20 @@ public class Product {
 
     public JSONObject toJSON() {
 
-        JSONObject json = new JSONObject("{" + "\"id\":" + id + ", \"name\":\"" + name +
+        return new JSONObject("{" + "\"id\":" + id + ", \"name\":\"" + name +
                 "\", \"price\":" + price + ", \"amount\":" + amount +
                 ", \"description\":\"" + description + "\", \"manufacturer\":\"" + manufacturer +
                 "\", \"group_id\":" + group_id + "}");
-
-        return json;
     }
 
     public static JSONObject toJSONObject(List<Product> products){
-        StringBuffer stringBuffer = new StringBuffer();
+        StringBuilder stringBuffer;
+        stringBuffer = new StringBuilder();
 
         stringBuffer.append("{\"list\":[");
 
         for (Product g: products) {
-            stringBuffer.append(g.toJSON().toString() + ", ");
+            stringBuffer.append(g.toJSON().toString()).append(", ");
         }
         stringBuffer.delete(stringBuffer.length()-1, stringBuffer.length()-1);
         stringBuffer.append("]}");
@@ -70,13 +68,5 @@ public class Product {
                 ", manufacturer=" + manufacturer + ", group_id=" + group_id + ')';
     }
 
-    public boolean equals(Product p) {
-        if (this.id.equals(p.getId()) && this.name.equals(p.getName()) && this.amount == p.getAmount()
-                && this.price == p.getPrice() && this.description.equals(p.getDescription())
-                && this.manufacturer.equals(p.getManufacturer()) && this.group_id.equals(p.getGroup_id())) {
-            return true;
-        }
-        return false;
-    }
 }
 

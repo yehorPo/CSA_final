@@ -1,18 +1,13 @@
 package client_server.client.controllers;
 
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.util.ResourceBundle;
-
 import client_server.client.GlobalContext;
 import client_server.domain.Group;
+import client_server.domain.Product;
 import client_server.domain.packet.Message;
 import client_server.domain.packet.Packet;
-import client_server.domain.Product;
 import com.google.common.primitives.UnsignedLong;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -21,15 +16,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import static client_server.domain.packet.Message.cTypes.*;
+import java.nio.charset.StandardCharsets;
+
+import static client_server.domain.packet.Message.cTypes.GET_LIST_GROUPS;
+import static client_server.domain.packet.Message.cTypes.UPDATE_PRODUCT;
 
 public class UpdateProdControl {
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     private Integer productID;
 
@@ -55,7 +47,7 @@ public class UpdateProdControl {
     private Label statusLabel;
 
     @FXML
-    void updateProd(ActionEvent event) {
+    void updateProd() {
         if(nameField.getText().isEmpty() || descrField.getText().isEmpty() || priceField.getText().isEmpty()
                 || amountField.getText().isEmpty() || manufField.getText().isEmpty()){
             statusLabel.setText("Fill out all fields before updateProduct.");
@@ -90,10 +82,10 @@ public class UpdateProdControl {
     public void initData(Product product) {
         productID = product.getId();
         nameField.setText(product.getName());
-        Double price = product.getPrice();
-        priceField.setText(price.toString());
-        Double amount = product.getAmount();
-        amountField.setText(amount.toString());
+        double price = product.getPrice();
+        priceField.setText(Double.toString(price));
+        double amount = product.getAmount();
+        amountField.setText(Double.toString(amount));
         descrField.setText(product.getDescription());
         manufField.setText(product.getManufacturer());
 
@@ -119,7 +111,7 @@ public class UpdateProdControl {
                 for (int i = 0; i < array.length(); i++) {
                     Group group = new Group(array.getJSONObject(i));
                     groups.add(group);
-                    if(group.getId() == product.getGroup_id()){
+                    if(group.getId().equals(product.getGroup_id())){
                         groupIdChoice.setValue(group);
                     }
                 }

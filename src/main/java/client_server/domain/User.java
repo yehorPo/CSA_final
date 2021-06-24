@@ -24,8 +24,7 @@ public class User {
     }
 
     public JSONObject toJSON(){
-        JSONObject json = new JSONObject("{"+"\"login\":"+login+", \"password\":\""+password+"\", \"role\":\""+role+"\"}");
-        return json;
+        return new JSONObject("{"+"\"login\":"+login+", \"password\":\""+password+"\", \"role\":\""+role+"\"}");
     }
 
     public boolean equals(User u) {

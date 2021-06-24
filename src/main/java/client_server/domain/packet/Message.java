@@ -82,9 +82,7 @@ public class Message {
 
         try {
             res = DeEncriptor.encode(msg);
-        } catch (NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException | IllegalBlockSizeException | InvalidAlgorithmParameterException e) {
-            e.printStackTrace();
-        } catch (BadPaddingException e) {
+        } catch (NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException | IllegalBlockSizeException | InvalidAlgorithmParameterException | BadPaddingException e) {
             e.printStackTrace();
         }
 
